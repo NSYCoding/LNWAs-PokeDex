@@ -1,0 +1,93 @@
+/* Universal Box Sizing and Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    background: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    color: black;
+}
+
+.image {
+    background-image: url('../Images/Brock-1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.container {
+    height: 100vh;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.headText,
+.mainText,
+.subText,
+.buttonFindDiv {
+    width: 90%;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+.buttonFindDiv {
+    padding-top: 0;
+    padding-bottom: 20px;
+}
+
+.headText h3,
+.mainText h3,
+.subText h3 {
+    margin-bottom: 10px;
+}
+
+.headText p,
+.mainText p,
+.subText p {
+    font-size: 13px;
+    line-height: 1.6;
+    font-style: italic;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.buttonFindDiv button {
+    background-color: brown;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+    .image {
+        background-image: url('../Images/Brock-2.png');
+        background-position: center;
+    }
+
+    .container {
+        background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.8) 80%);
+    }
+
+    .headText,
+    .mainText,
+    .subText,
+    .buttonFindDiv {
+        width: 50%;
+        max-width: 600px;
+        background-color: transparent;
+    }
+
+    .buttonFindDiv button {
+        margin-left: 0;
+    }
+}
