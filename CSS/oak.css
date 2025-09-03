@@ -22,42 +22,6 @@ html, body {
     --items-text-color: #67775a;
 }
 
-header {
-    background-color: #f8f8f8;
-    padding: 10px 20px;
-    border-bottom: 1px solid #eee;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav div {
-    display: flex;
-    align-items: center;
-}
-
-nav a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: #333;
-}
-
-nav button {
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-nav button:hover {
-    background-color: #45a049;
-}
-
 main {
     display: flex;
     flex-direction: column;
