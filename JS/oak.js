@@ -153,7 +153,7 @@ function DisplayStrengthWeaknessImmunities(data) {
     makeImmunityCard(data.damage_relations.no_damage_from);
 }
 
-function makeStrengthCard(type) {
+function makeStrengthCard(typeDouble, typeHalf) {
     let card;
     const strengthsDiv = document.getElementById("strengthsList");
     strengthsDiv.innerHTML = "";
