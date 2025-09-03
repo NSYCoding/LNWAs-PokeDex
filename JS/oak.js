@@ -1,11 +1,28 @@
 window.addEventListener("load", () => {
-    const randomId = Math.floor(Math.random() * 1000) + 1;
-    //const randomId = 384;
-    //let pokemonimage = ``;
-    //let evolutionchainId = 1;
-    fetchPokemons(randomId);
-    fetchPokemonSpecies(randomId)
+    const nameOrId = Math.floor(Math.random() * 1000) + 1;
+    fetchPokemons(nameOrId);
+    fetchPokemonSpecies(nameOrId);
 });
+
+// searching functions
+const searchBtn = document.getElementById('searchBtn');
+const searchInput = document.getElementById('pokemonSearch');
+
+searchBtn.addEventListener('click', () => handleSearch(searchInput.value.trim()));
+searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleSearch(searchInput.value.trim());
+});
+
+function handleSearch(nameOrId) {
+    if (!nameOrId) {
+        console.warn('Please enter a Pokémon name or ID');
+        return;
+    }
+    console.log('Searching for:', nameOrId);
+    fetchPokemons(nameOrId);
+    fetchPokemonSpecies(nameOrId);
+}
+
 
 function fetchPokemons(Id) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${Id}`)
@@ -51,22 +68,31 @@ function fetchLocations(url) {
 }
 
 function fetechTypes(type1, type2) {
-    console.log(type1);
-    console.log(type2);
-    fetch(`https://pokeapi.co/api/v2/type/${type1}/`)
-    .then((res) => res.json())
-    .then((data) => {
-        console.log(data);
-        DisplayStrengthWeaknessImmunities(data);
-    })
-    .catch((err) => console.log(err));
+    const requests = [
+        fetch(`https://pokeapi.co/api/v2/type/${type1}/`).then(res => res.json())
+    ];
+
+    // only fetch type2 if it exists
+    if (type2) {
+        requests.push(fetch(`https://pokeapi.co/api/v2/type/${type2}/`).then(res => res.json()));
+    }
+
+    Promise.all(requests)
+        .then(([data1, data2]) => {
+            console.log("Type 1 data:", data1);
+            if (data2) console.log("Type 2 data:", data2);
+
+            DisplayStrengthWeakness(data1, data2);
+        })
+        .catch(err => console.error(err));
 }
+
 
 function displayPokemon(pokemon) {
     const pokemonName = document.getElementById("pokemonName");
     const pokemonType1 = document.getElementById("pokemonType1");
     const pokemonType2 = document.getElementById("pokemonType2");
-    const container = document.getElementById("containerDisplay");
+    const container = document.getElementById("PokeImg");
     pokemonName.innerText = pokemon.name;
     //console.log(pokemon);
     fetechTypes(pokemon.types[0].type.name, pokemon.types[1]?.type.name);
@@ -78,11 +104,8 @@ function displayPokemon(pokemon) {
         pokemon.sprites.other["official-artwork"] &&
         pokemon.sprites.other["official-artwork"].front_default
     ) {
-        container.style.backgroundImage = `url(${pokemon.sprites.other["official-artwork"].front_default})`;
-        pokemonimage = `${pokemon.sprites.other["official-artwork"].front_default}`;
-    } else {
-        container.style.backgroundImage = "none";
-    }
+        container.innerHTML = `<img src="${pokemon.sprites.other["official-artwork"].front_default}" alt="">`;  
+    } 
 
     // Display the Pokemon types
     if (pokemon.types.length > 0) {
@@ -147,99 +170,124 @@ function DisplayLocations(data) {
     }
 }
 
-function DisplayStrengthWeaknessImmunities(data) {
-    makeStrengthCard(data.damage_relations.double_damage_to, data.damage_relations.half_damage_to);
-    makeResistancesCard(data.damage_relations.double_damage_form, data.damage_relations.half_damage_from);
-    makeImmunityCard(data.damage_relations.no_damage_from);
+function DisplayStrengthWeakness(type1, type2) {
+    const multipliersTaken = calculateTypeMultipliers(type1, type2, "from"); // damage taken
+    const multipliersDealt = calculateTypeMultipliers(type1, type2, "to");   // damage dealt
+
+    const strengths = [];
+    const weaknesses = [];
+    const resistances = [];
+
+    // --- Damage taken (defense side) ---
+    for (const [typeName, multiplier] of Object.entries(multipliersTaken)) {
+        if (multiplier > 1) {
+            weaknesses.push({ name: typeName, value: multiplier });
+        } else if (multiplier < 1 && multiplier > 0) {
+            resistances.push({ name: typeName, value: multiplier });
+        } else if (multiplier === 0) {
+            resistances.push({ name: typeName, value: "0" });
+        }
+    }
+
+    // --- Damage dealt (offense side) ---
+    for (const [typeName, multiplier] of Object.entries(multipliersDealt)) {
+        if (multiplier > 1) {
+            strengths.push({ name: typeName, value: multiplier });
+        }
+    }
+
+    makeStrengthsCard(strengths);
+    makeWeaknessCard(weaknesses);
+    makeResistancesCard(resistances);
 }
 
-function makeStrengthCard(typeDouble, typeHalf) {
-    let card;
+function calculateTypeMultipliers(type1, type2, mode = "from") {
+    const multipliers = {};
+
+    function applyRelations(typeData) {
+        if (mode === "from") {
+            // Damage taken
+            typeData.damage_relations.double_damage_from.forEach(t => {
+                multipliers[t.name] = (multipliers[t.name] || 1) * 2;
+            });
+            typeData.damage_relations.half_damage_from.forEach(t => {
+                multipliers[t.name] = (multipliers[t.name] || 1) * 0.5;
+            });
+            typeData.damage_relations.no_damage_from.forEach(t => {
+                multipliers[t.name] = 0;
+            });
+        } else {
+            // Damage dealt
+            typeData.damage_relations.double_damage_to.forEach(t => {
+                multipliers[t.name] = (multipliers[t.name] || 1) * 2;
+            });
+            typeData.damage_relations.half_damage_to.forEach(t => {
+                multipliers[t.name] = (multipliers[t.name] || 1) * 0.5;
+            });
+            typeData.damage_relations.no_damage_to.forEach(t => {
+                multipliers[t.name] = 0;
+            });
+        }
+    }
+
+    applyRelations(type1);
+    if (type2) applyRelations(type2);
+
+    return multipliers;
+}
+
+function makeStrengthsCard(strengths) {
     const strengthsDiv = document.getElementById("strengthsList");
     strengthsDiv.innerHTML = "";
 
-    if (typeDouble == null || typeDouble.length == 0) {
+    if (!strengths.length) {
         strengthsDiv.innerHTML = "<p>No strengths found.</p>";
-    } else {
-        for (let i = 0; i < typeDouble.length; i++) {
-            const StrengthDiv = document.createElement("div");
-
-            StrengthDiv.innerHTML = `
-            <div">
-                <p>${typeDouble[i].name} 2x</p>
-            </div>`;
-            strengthsDiv.appendChild(StrengthDiv);
-        }
+        return;
     }
 
-    if (typeHalf == null || typeHalf.length == 0) {
-        strengthsDiv.innerHTML = "<p>No strengths found.</p>";
-    } else {
-        for (let i = 0; i < typeHalf.length; i++) {
-            const StrengthDiv = document.createElement("div");
-
-            StrengthDiv.innerHTML = `
-            <div">
-                <p>${typeHalf[i].name} 1/2</p>
-            </div>`;
-            strengthsDiv.appendChild(StrengthDiv);
-        }
-    }
-    return card;
+    strengths.forEach(s => {
+        const div = document.createElement("div");
+        div.classList.add("pokemonType");
+        div.innerHTML = `<p>${s.name}: ${s.value}x</p>`;
+        div.style.backgroundColor = getTypeColor(s.name); // 🔹 Add color
+        strengthsDiv.appendChild(div);
+    });
 }
 
-function makeResistancesCard(typeDouble, typeHalf) {
-    let card;
+function makeWeaknessCard(weaknesses) {
+    const weaknessesDiv = document.getElementById("weaknessesList");
+    weaknessesDiv.innerHTML = "";
+
+    if (!weaknesses.length) {
+        weaknessesDiv.innerHTML = "<p>No weaknesses found.</p>";
+        return;
+    }
+
+    weaknesses.forEach(s => {
+        const div = document.createElement("div");
+        div.classList.add("pokemonType");
+        div.innerHTML = `<p>${s.name}: ${s.value}x</p>`;
+        div.style.backgroundColor = getTypeColor(s.name); // 🔹 Add color
+        weaknessesDiv.appendChild(div);
+    });
+}
+
+function makeResistancesCard(resistances) {
     const resistancesDiv = document.getElementById("resistancesList");
     resistancesDiv.innerHTML = "";
-    if ((typeDouble && typeDouble.length > 0) || (typeHalf && typeHalf.length > 0)) {
-        if (typeDouble && typeDouble.length > 0) {
-            for (let i = 0; i < typeDouble.length; i++) {
-                const resistanceDiv = document.createElement("div");
-                resistanceDiv.innerHTML = `
-                <div>
-                    <p>${typeDouble[i].name} 1/2</p>
-                </div>`;
-                resistancesDiv.appendChild(resistanceDiv);
-            }
-        }
 
-        if (typeHalf && typeHalf.length > 0) {
-            for (let i = 0; i < typeHalf.length; i++) {
-                const resistanceDiv = document.createElement("div");
-                resistanceDiv.innerHTML = `
-                <div>
-                    <p>${typeHalf[i].name} 2x</p>
-                </div>`;
-                resistancesDiv.appendChild(resistanceDiv);
-            }
-        }
-    } else {
-        resistancesDiv.innerHTML = "<p>No Resistances found</p>";
+    if (!resistances.length) {
+        resistancesDiv.innerHTML = "<p>No resistances or immunities found.</p>";
+        return;
     }
 
-    return card;
-}
-
-function makeImmunityCard(type) {
-    let card;
-    const immunitiesDiv = document.getElementById("immunitiesList");
-    immunitiesDiv.innerHTML = "";
-
-    if (type == null || type.length == 0) {
-        immunitiesDiv.innerHTML = "<p>No immunities found.</p>";
-    } else {
-        for (let i = 0; i < type.length; i++) {
-            const ImmunityDiv = document.createElement("div");
-
-            ImmunityDiv.innerHTML = `
-            <div">
-                <p>${type[i].name}</p>
-            </div>`;
-            immunitiesDiv.appendChild(ImmunityDiv);
-        }
-    }
-    return card;
+    resistances.forEach(r => {
+        const div = document.createElement("div");
+        div.classList.add("pokemonType");
+        div.innerHTML = `<p>${r.name}: ${r.value}x</p>`;
+        div.style.backgroundColor = getTypeColor(r.name); // 🔹 Add color
+        resistancesDiv.appendChild(div);
+    });
 }
 
 function getTypeColor(type) {
@@ -376,4 +424,3 @@ function renderEvolutionNode(node, container) {
 
     container.appendChild(nodeWrapper);
 }
-
