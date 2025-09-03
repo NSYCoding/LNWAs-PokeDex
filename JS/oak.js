@@ -7,10 +7,9 @@ const container = document.getElementById("containerDisplay");
 
 window.addEventListener("load", () => {
     const randomId = Math.floor(Math.random() * 1000) + 1;
-    //const randomId = 258;
+    //const randomId = 43;
     fetchPokemons(randomId);
     fetchPokemonSpecies(randomId)
-    //fetchLocations(randomId);
 });
 
 function fetchPokemons(Id) {
@@ -19,7 +18,7 @@ function fetchPokemons(Id) {
     .then((data) => {
         displayPokemon(data);
         fetchLocations(data.location_area_encounters);
-        console.log(data);
+        //console.log(data);
         
     })
     .catch((err) => console.log(err));
@@ -29,7 +28,7 @@ function fetchPokemonSpecies(Id) {
     fetch(`https://pokeapi.co/api/v2/pokemon-species/${Id}/`)
     .then((res) => res.json())
     .then((data) => {
-        console.log(data);
+        //console.log(data);
         let evolutionChainId = data.evolution_chain.url.split("/").slice(-2, -1)[0];
         fetchEvolutions(evolutionChainId);
     })
@@ -46,18 +45,32 @@ function fetchEvolutions(Id) {
         .catch((err) => console.log(err));
 }
 
-function fetchLocations(id) {
-    fetch(`${id}`)
+function fetchLocations(url) {
+    fetch(`${url}`)
     .then((res) => res.json())
     .then((data) => {
         DisplayLocations(data);
+        //console.log(data);
+    })
+    .catch((err) => console.log(err));
+}
+
+function fetechTypes(type1, type2) {
+    console.log(type1);
+    console.log(type2);
+    fetch(`https://pokeapi.co/api/v2/type/${type1}/`)
+    .then((res) => res.json())
+    .then((data) => {
         console.log(data);
+        DisplayStrengthWeaknessImmunities(data);
     })
     .catch((err) => console.log(err));
 }
 
 function displayPokemon(pokemon) {
     pokemonName.innerText = pokemon.name;
+    //console.log(pokemon);
+    fetechTypes(pokemon.types[0].type.name, pokemon.types[1]?.type.name);
 
     // Set the background image of the container
     if (
@@ -102,22 +115,105 @@ function displayEvolutions(data) {
 }
 
 function DisplayLocations(data) {
+    //console.log(data);
     const locationsDiv = document.getElementById("locations");
     locationsDiv.innerHTML = "";
 
-    if (data && data.location_area) {
-        const locationName = document.createElement("h3");
-        locationName.innerText = "Locations:";
-        locationsDiv.appendChild(locationName);
+    if (data == null || data.length == 0) {
+        locationsDiv.innerHTML = "<p>No locations found.</p>";
+    } else {
+        for (let i = 0; i < data.length; i++) {
 
-        const locationList = document.createElement("ul");
-        data.location_area.forEach(location => {
-            const listItem = document.createElement("li");
-            listItem.innerText = location.name;
-            locationList.appendChild(listItem);
-        });
-        locationsDiv.appendChild(locationList);
+            // Assuming data[i].location_area.name contains something like "route-22"
+            let rawName = data[i].location_area.name;
+
+            // Remove hyphens and capitalize each word
+            let formattedName = rawName
+            .split('-') // Split by hyphen
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
+            .join(' '); // Join with space
+
+            const PokelocationsDiv = document.createElement("div");
+            PokelocationsDiv.classList.add("Pokelocations");
+
+            PokelocationsDiv.innerHTML = `
+            <div">
+                <h3>${formattedName}</h3>
+                <p>${data[i].version_details[0].encounter_details[0].chance} %</p>
+                <p>${data[i].version_details[0].encounter_details[0].min_level} lvl - ${data[i].version_details[0].encounter_details[0].max_level} lvl</p>
+            </div>`;
+            locationsDiv.appendChild(PokelocationsDiv);
+        }
     }
+}
+
+function DisplayStrengthWeaknessImmunities(data) {
+    makeStrengthCard(data.damage_relations.double_damage_to);
+    makeResistancesCard(data.damage_relations.half_damage_from);
+    makeImmunityCard(data.damage_relations.no_damage_from);
+}
+
+function makeStrengthCard(type) {
+    let card;
+    const strengthsDiv = document.getElementById("strengthsList");
+    strengthsDiv.innerHTML = "";
+
+    if (type == null || type.length == 0) {
+        strengthsDiv.innerHTML = "<p>No strengths found.</p>";
+    } else {
+        for (let i = 0; i < type.length; i++) {
+            const StrengthDiv = document.createElement("div");
+
+            StrengthDiv.innerHTML = `
+            <div">
+                <p>${type[i].name} 2x</p>
+            </div>`;
+            strengthsDiv.appendChild(StrengthDiv);
+        }
+    }
+    return card;
+}
+
+function makeResistancesCard(type) {
+    let card;
+    const resistancesDiv = document.getElementById("resistancesList");
+    resistancesDiv.innerHTML = "";
+
+    if (type == null || type.length == 0) {
+        resistancesDiv.innerHTML = "<p>No resistance found.</p>";
+    } else {
+        for (let i = 0; i < type.length; i++) {
+            const resistanceDiv = document.createElement("div");
+
+            resistanceDiv.innerHTML = `
+            <div">
+                <p>${type[i].name} 2x</p>
+            </div>`;
+            resistancesDiv.appendChild(resistanceDiv);
+        }
+    }
+    return card;
+}
+
+function makeImmunityCard(type) {
+    let card;
+    const immunitiesDiv = document.getElementById("immunitiesList");
+    immunitiesDiv.innerHTML = "";
+
+    if (type == null || type.length == 0) {
+        immunitiesDiv.innerHTML = "<p>No immunities found.</p>";
+    } else {
+        for (let i = 0; i < type.length; i++) {
+            const ImmunityDiv = document.createElement("div");
+
+            ImmunityDiv.innerHTML = `
+            <div">
+                <p>${type[i].name} 2x</p>
+            </div>`;
+            immunitiesDiv.appendChild(ImmunityDiv);
+        }
+    }
+    return card;
 }
 
 function getTypeColor(type) {
