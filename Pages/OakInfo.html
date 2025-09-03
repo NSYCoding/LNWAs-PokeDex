@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../CSS/oak.css" />
     <script src="../JS/oak.js" defer></script>
+    <script type="module" src="../JS/importNav.js"></script>
+    
     <title>PokeInfoHub</title>
   </head>
   <body>
+      <pokemon-navbar></pokemon-navbar>
+
     <header>
       <nav>
         <div>
@@ -30,30 +34,45 @@
       <section id="displayEvolve">
         <div id="containerDisplay">
           <div class="description">
-            <h2 id="pokemonName">Bulbasaur</h2>
-            <div class="types">
-              <p id="pokemonType1"></p>
-              <p id="pokemonType2"></p>
-            </div>
+              <h2 id="pokemonName">Bulbasaur</h2>
+              <div class="types">
+                  <p id="pokemonType1"></p>
+                  <p id="pokemonType2"></p>
+              </div>
           </div>
         </div>
         <div id="evolutionDisplay">
-          <h3>Evolution</h3>
-          <div id="evolutionChain"></div>
+            <h3>Evolution Chain</h3>
+            <div id="evolutionChain"></div>
         </div>
       </section>
 
       <section id="displayLocation">
-        <h2>Pokémon Locations</h2>
-        <div id="locations"></div>
+            <h2>Where to be found at!</h2>
+            <div id="locations"></div>
       </section>
 
       <section id="StrengthsWeakness">
-        <h2>Pokémon Strengths and Weaknesses</h2>
-        <p>
-          Learn about the strengths and weaknesses of different Pokémon types!
-        </p>
+            <h2>Type Chart</h2>
+            <div id="strengthsWeaknesses">
+                <div>
+                    <h3>Strengths</h3>
+                    <ul id="strengthsList"></ul>
+                </div>
+                <div>
+                    <h3>Resistances</h3>
+                    <ul id="resistancesList"></ul>
+                </div>
+                <div>
+                    <h3>Immunities</h3>
+                    <ul id="immunitiesList"></ul>
+                </div>
+            </div>
       </section>
     </main>
+
+    <pokemon-footer></pokemon-footer>
+
+
   </body>
 </html>

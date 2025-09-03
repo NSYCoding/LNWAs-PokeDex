@@ -1,13 +1,8 @@
-let pokemonimage = ``;
-let evolutionchainId = 1;
-const pokemonName = document.getElementById("pokemonName");
-const pokemonType1 = document.getElementById("pokemonType1");
-const pokemonType2 = document.getElementById("pokemonType2");
-const container = document.getElementById("containerDisplay");
-
 window.addEventListener("load", () => {
-    const randomId = Math.floor(Math.random() * 1000) + 1;
-    //const randomId = 43;
+    //const randomId = Math.floor(Math.random() * 1000) + 1;
+    const randomId = 384;
+    //let pokemonimage = ``;
+    //let evolutionchainId = 1;
     fetchPokemons(randomId);
     fetchPokemonSpecies(randomId)
 });
@@ -68,6 +63,10 @@ function fetechTypes(type1, type2) {
 }
 
 function displayPokemon(pokemon) {
+    const pokemonName = document.getElementById("pokemonName");
+    const pokemonType1 = document.getElementById("pokemonType1");
+    const pokemonType2 = document.getElementById("pokemonType2");
+    const container = document.getElementById("containerDisplay");
     pokemonName.innerText = pokemon.name;
     //console.log(pokemon);
     fetechTypes(pokemon.types[0].type.name, pokemon.types[1]?.type.name);
@@ -139,6 +138,7 @@ function DisplayLocations(data) {
             PokelocationsDiv.innerHTML = `
             <div">
                 <h3>${formattedName}</h3>
+                <p>${data[i].version_details[0].encounter_details[0].method.name}</p>
                 <p>${data[i].version_details[0].encounter_details[0].chance} %</p>
                 <p>${data[i].version_details[0].encounter_details[0].min_level} lvl - ${data[i].version_details[0].encounter_details[0].max_level} lvl</p>
             </div>`;
@@ -148,8 +148,8 @@ function DisplayLocations(data) {
 }
 
 function DisplayStrengthWeaknessImmunities(data) {
-    makeStrengthCard(data.damage_relations.double_damage_to);
-    makeResistancesCard(data.damage_relations.half_damage_from);
+    makeStrengthCard(data.damage_relations.double_damage_to, data.damage_relations.half_damage_to);
+    makeResistancesCard(data.damage_relations.half_damage_from, data.damage_relations.double_damage_form);
     makeImmunityCard(data.damage_relations.no_damage_from);
 }
 
