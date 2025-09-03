@@ -1,0 +1,249 @@
+/* MOBILE FIRST */
+:root {
+    --green-900: #1b5e20;
+    --green-800: #2e7d32;
+    --green-700: #388e3c;
+    --green-400: #66bb6a;
+    --green-200: #a5d6a7;
+    --green-100: #c8e6c9;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* CSS for PokemonNameImages */
+
+
+
+/* CSS for PokemonNameImages End */
+
+body {
+    background: linear-gradient(to bottom, #e0f7fa, var(--green-200));
+    font-family: 'Verdana', sans-serif;
+    color: var(--green-800);
+    margin: 0;
+    padding: 0;
+}
+
+#navbar {
+    background-color: var(--green-700);
+    padding: 10px;
+    text-align: left;
+}
+
+.languageSelector {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown {
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+main {
+    padding: 12px;
+}
+
+.typeMatchUpsContainer,
+.saveMatchUps {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.container1 {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.container2 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.container3,
+.container4 {
+    margin-top: 16px;
+}
+
+.pokemonOne,
+.pokemonTwo,
+.card {
+    background-color: var(--green-100);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.media {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-top: 8px;
+}
+
+img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    border: 2px solid var(--green-700);
+    border-radius: 10px;
+    background: white;
+}
+
+button {
+    background-color: var(--green-400);
+    border: none;
+    padding: 10px 12px;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #81c784;
+    min-width: 180px;
+}
+
+/* Aanpassingen voor de nieuwe layout van buttons en dropdowns */
+.itemRow,
+.natureRow {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    position: relative;
+}
+
+.item-dropdown,
+.nature-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid var(--green-700);
+    border-radius: 8px;
+    z-index: 10;
+    min-width: 200px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.item-dropdown-item,
+.nature-dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.item-dropdown-item:hover,
+.nature-dropdown-item:hover {
+    background-color: var(--green-100);
+}
+
+.selectedItem,
+.selectedNature {
+    font-size: .9rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th,
+td {
+    border: 1px solid #81c784;
+    padding: 8px;
+    text-align: left;
+}
+
+.outcomeOfTestRun p,
+.displayResult p {
+    margin: 6px 0;
+}
+
+#coinResult {
+    margin-left: 8px;
+    font-weight: bold;
+}
+
+#savedList .card {
+    margin-bottom: 10px;
+    border-left: 5px solid var(--green-700);
+    position: relative;
+}
+
+#savedList .card button {
+    margin-top: 10px;
+}
+
+/* TABLET and bigger: maintain 2-column layout */
+@media (min-width: 768px) {
+    .container1 {
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 20px;
+    }
+
+    .pokemonOne,
+    .pokemonTwo {
+        width: 45%;
+    }
+
+    .container2 {
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+    }
+}
+
+/* Bigger screens */
+@media (min-width: 1100px) {
+    img {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+.green-stat {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.red-stat {
+    color: #F44336;
+    font-weight: bold;
+}
