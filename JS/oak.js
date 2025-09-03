@@ -1,4 +1,5 @@
 let pokemonimage = ``;
+let evolutionchainId = 1;
 const pokemonName = document.getElementById("pokemonName");
 const pokemonType1 = document.getElementById("pokemonType1");
 const pokemonType2 = document.getElementById("pokemonType2");
@@ -6,16 +7,53 @@ const container = document.getElementById("containerDisplay");
 
 window.addEventListener("load", () => {
     const randomId = Math.floor(Math.random() * 1000) + 1;
+    //const randomId = 258;
     fetchPokemons(randomId);
+    fetchPokemonSpecies(randomId)
+    //fetchLocations(randomId);
 });
 
-function fetchPokemons(pokemonId) {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+function fetchPokemons(Id) {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${Id}`)
+    .then((res) => res.json())
+    .then((data) => {
+        displayPokemon(data);
+        fetchLocations(data.location_area_encounters);
+        console.log(data);
+        
+    })
+    .catch((err) => console.log(err));
+}
+
+function fetchPokemonSpecies(Id) {
+    fetch(`https://pokeapi.co/api/v2/pokemon-species/${Id}/`)
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data);
+        let evolutionChainId = data.evolution_chain.url.split("/").slice(-2, -1)[0];
+        fetchEvolutions(evolutionChainId);
+    })
+    .catch((err) => console.log(err));
+}
+
+function fetchEvolutions(Id) {
+    fetch(`https://pokeapi.co/api/v2/evolution-chain/${Id}/`)
         .then((res) => res.json())
         .then((data) => {
-            displayPokemon(data);
+            displayEvolutions(data);
+            //console.log(data);
         })
         .catch((err) => console.log(err));
+}
+
+function fetchLocations(id) {
+    fetch(`${id}`)
+    .then((res) => res.json())
+    .then((data) => {
+        DisplayLocations(data);
+        console.log(data);
+    })
+    .catch((err) => console.log(err));
 }
 
 function displayPokemon(pokemon) {
@@ -52,6 +90,36 @@ function displayPokemon(pokemon) {
     }
 }
 
+function displayEvolutions(data) {
+    const evolutionChain = document.getElementById("evolutionChain");
+    evolutionChain.innerHTML = "";
+
+    // Build a tree where each branch carries its own evolution 'via' details
+    const tree = buildTreeWithDetails(data.chain);
+
+    // Render the full tree starting at the root
+    renderEvolutionNode(tree, evolutionChain);
+}
+
+function DisplayLocations(data) {
+    const locationsDiv = document.getElementById("locations");
+    locationsDiv.innerHTML = "";
+
+    if (data && data.location_area) {
+        const locationName = document.createElement("h3");
+        locationName.innerText = "Locations:";
+        locationsDiv.appendChild(locationName);
+
+        const locationList = document.createElement("ul");
+        data.location_area.forEach(location => {
+            const listItem = document.createElement("li");
+            listItem.innerText = location.name;
+            locationList.appendChild(listItem);
+        });
+        locationsDiv.appendChild(locationList);
+    }
+}
+
 function getTypeColor(type) {
     const typeColors = {
         normal: "#a8a878",
@@ -74,5 +142,116 @@ function getTypeColor(type) {
         fairy: "#ee99ac",
     };
     return typeColors[type] || "#68a090";
+}
+
+function buildTreeWithDetails(node) {
+    // Return a tree where each child carries its own 'via' evolution details
+    return {
+        name: node.species.name,
+        url: node.species.url,
+        evolves_to: node.evolves_to.map(next => ({
+            name: next.species.name,
+            url: next.species.url,
+            via: next.evolution_details?.at(-1) || null,
+            evolves_to: buildTreeWithDetails(next).evolves_to
+        }))
+    };
+}
+
+function formatEvolutionMethod(details) {
+    if (!details) return "";
+    let evoText = "Evolves via:";
+    if (details.min_level) evoText += ` Level ${details.min_level}`;
+    if (details.item?.name) evoText += ` Use ${details.item.name}`;
+    if (details.trigger?.name) evoText += ` (${details.trigger.name})`;
+    if (details.needs_overworld_rain) evoText += " (while raining)";
+    if (details.time_of_day) evoText += ` (${details.time_of_day})`;
+    if (details.min_happiness) evoText += ` (Min Happiness: ${details.min_happiness})`;
+    if (details.min_beauty) evoText += ` (Min Beauty: ${details.min_beauty})`;
+    if (details.min_affection) evoText += ` (Min Affection: ${details.min_affection})`;
+    if (details.held_item?.name) evoText += ` Hold ${details.held_item.name}`;
+    if (details.known_move?.name) evoText += ` Knows move ${details.known_move.name}`;
+    if (details.known_move_type?.name) evoText += ` Knows move type ${details.known_move_type.name}`;
+    if (details.location?.name) evoText += ` At location ${details.location.name}`;
+    if (details.party_species?.name) evoText += ` With ${details.party_species.name} in party`;
+    if (details.party_type?.name) evoText += ` With type ${details.party_type.name} in party`;
+    if (details.relative_physical_stats != null) evoText += ` (Relative Physical Stats: ${details.relative_physical_stats})`;
+    if (details.trade_species?.name) evoText += ` Trade for ${details.trade_species.name}`;
+    if (details.turn_upside_down) evoText += " (Turn device upside down)";
+    if (details.gender != null) evoText += ` (Gender: ${details.gender === 1 ? "Female" : "Male"})`;
+    return evoText;
+}
+
+function makePokeCard(name, url) {
+    const idMatch = url.match(/\/pokemon-species\/(\d+)\//);
+    const pokeId = idMatch ? idMatch[1] : null;
+    const imgUrl = pokeId
+        ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeId}.png`
+        : "";
+
+    const card = document.createElement("div");
+    card.className = "poke-card";
+
+    const img = document.createElement("img");
+    img.src = imgUrl;
+    img.alt = name;
+    img.className = "poke-card__img";
+
+    const label = document.createElement("div");
+    label.innerText = name;
+    label.className = "poke-card__label";
+
+    card.appendChild(img);
+    card.appendChild(label);
+    return card;
+}
+
+function renderEvolutionNode(node, container) {
+    // Render this node
+    const nodeWrapper = document.createElement("div");
+    nodeWrapper.className = "evo-node";
+
+    const nodeCard = makePokeCard(node.name, node.url);
+    nodeWrapper.appendChild(nodeCard);
+
+    // Render children (split evolutions)
+    if (node.evolves_to && node.evolves_to.length > 0) {
+        const branchContainer = document.createElement("div");
+        branchContainer.className = "evo-branch";
+
+        node.evolves_to.forEach(child => {
+            const childWrapper = document.createElement("div");
+            childWrapper.className = "evo-child";
+
+            // Optional: a thin connector line
+            const connector = document.createElement("div");
+            connector.className = "evo-connector";
+
+            // Evolution method text (edge label)
+            const method = formatEvolutionMethod(child.via);
+            if (method) {
+                const methodDiv = document.createElement("div");
+                methodDiv.innerText = method;
+                methodDiv.className = "evo-method";
+                childWrapper.appendChild(methodDiv);
+            }
+
+            childWrapper.appendChild(connector);
+
+            // Render the child node card (recurse)
+            const childNode = {
+                name: child.name,
+                url: child.url,
+                evolves_to: child.evolves_to
+            };
+            renderEvolutionNode(childNode, childWrapper);
+
+            branchContainer.appendChild(childWrapper);
+        });
+
+        nodeWrapper.appendChild(branchContainer);
+    }
+
+    container.appendChild(nodeWrapper);
 }
 
