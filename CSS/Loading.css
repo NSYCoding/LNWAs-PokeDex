@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: black;
+    list-style: none;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: none;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: darkgray;
+}
+
+.ball {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100vh;
+    animation: rotate 2.3s linear forwards;
+}
+
+.dot {
+    width: 40px;
+    height: 40px;
+    background-color: rgb(196, 187, 187);
+    border: 10px solid black;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+}
+
+.band {
+    position: absolute;
+    width: 100vw;
+    height: 20px;
+    background-color: black;
+    animation: poll 2.3s forwards;
+    z-index: 0;
+}
+
+.spinner {
+    width: min(40vw, 140px);
+    height: min(40vw, 140px);
+    background: linear-gradient(to bottom, red 50%, white 50%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+        scale: 1;
+    }
+
+    100% {
+        transform: rotate(360deg);
+        scale: 0.4;
+    }
+}
+
+@keyframes poll {
+    0% {
+        width: 100vw;
+    }
+
+    100% {
+        width: 160px;
+    }
+}
