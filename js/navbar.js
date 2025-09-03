@@ -24,7 +24,7 @@ const footer = `
         <link rel="stylesheet" href="../css/navbar&Footer.css">
         <div id="footer-content">
             <footer class="footer">
-                <p>© 2025 Persona 5 Fanpage. All Rights Reserved.</p>
+                <p>© 2025 Pokemon Pokedex. All Rights Reserved.</p>
             </footer>
         </div>`;
 
