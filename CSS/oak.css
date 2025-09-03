@@ -149,16 +149,19 @@ main {
     padding: 10px;
     background-image: none;
 
-    .locations {
+    #locations {
         display: flex;
+        justify-content: space-evenly;
         flex-wrap: wrap;
-        justify-content: space-between;
 
-        h3 {
-            flex-basis: 30%;
+        .Pokelocations {
+            background-color:  rgb(72, 72, 89, 0.5);
+            border-radius: 15px;
+            margin: 5px;
+            padding: 10px;
             text-align: center;
-            margin: 5px 0;
         }
+        
     }
 }
 
@@ -170,6 +173,12 @@ main {
     border-radius: 25px;
     padding: 10px;
     background-image: none;
+
+    #strengthsWeaknesses {
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
 }
 
 /* Card */
