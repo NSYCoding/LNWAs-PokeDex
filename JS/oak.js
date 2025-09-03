@@ -1,6 +1,6 @@
 window.addEventListener("load", () => {
-    //const randomId = Math.floor(Math.random() * 1000) + 1;
-    const randomId = 384;
+    const randomId = Math.floor(Math.random() * 1000) + 1;
+    //const randomId = 384;
     //let pokemonimage = ``;
     //let evolutionchainId = 1;
     fetchPokemons(randomId);
@@ -149,7 +149,7 @@ function DisplayLocations(data) {
 
 function DisplayStrengthWeaknessImmunities(data) {
     makeStrengthCard(data.damage_relations.double_damage_to, data.damage_relations.half_damage_to);
-    makeResistancesCard(data.damage_relations.half_damage_from, data.damage_relations.double_damage_form);
+    makeResistancesCard(data.damage_relations.double_damage_form, data.damage_relations.half_damage_from);
     makeImmunityCard(data.damage_relations.no_damage_from);
 }
 
@@ -158,15 +158,29 @@ function makeStrengthCard(typeDouble, typeHalf) {
     const strengthsDiv = document.getElementById("strengthsList");
     strengthsDiv.innerHTML = "";
 
-    if (type == null || type.length == 0) {
+    if (typeDouble == null || typeDouble.length == 0) {
         strengthsDiv.innerHTML = "<p>No strengths found.</p>";
     } else {
-        for (let i = 0; i < type.length; i++) {
+        for (let i = 0; i < typeDouble.length; i++) {
             const StrengthDiv = document.createElement("div");
 
             StrengthDiv.innerHTML = `
             <div">
-                <p>${type[i].name} 2x</p>
+                <p>${typeDouble[i].name} 2x</p>
+            </div>`;
+            strengthsDiv.appendChild(StrengthDiv);
+        }
+    }
+
+    if (typeHalf == null || typeHalf.length == 0) {
+        strengthsDiv.innerHTML = "<p>No strengths found.</p>";
+    } else {
+        for (let i = 0; i < typeHalf.length; i++) {
+            const StrengthDiv = document.createElement("div");
+
+            StrengthDiv.innerHTML = `
+            <div">
+                <p>${typeHalf[i].name} 1/2</p>
             </div>`;
             strengthsDiv.appendChild(StrengthDiv);
         }
@@ -174,24 +188,36 @@ function makeStrengthCard(typeDouble, typeHalf) {
     return card;
 }
 
-function makeResistancesCard(type) {
+function makeResistancesCard(typeDouble, typeHalf) {
     let card;
     const resistancesDiv = document.getElementById("resistancesList");
     resistancesDiv.innerHTML = "";
-
-    if (type == null || type.length == 0) {
-        resistancesDiv.innerHTML = "<p>No resistance found.</p>";
-    } else {
-        for (let i = 0; i < type.length; i++) {
-            const resistanceDiv = document.createElement("div");
-
-            resistanceDiv.innerHTML = `
-            <div">
-                <p>${type[i].name} 2x</p>
-            </div>`;
-            resistancesDiv.appendChild(resistanceDiv);
+    if ((typeDouble && typeDouble.length > 0) || (typeHalf && typeHalf.length > 0)) {
+        if (typeDouble && typeDouble.length > 0) {
+            for (let i = 0; i < typeDouble.length; i++) {
+                const resistanceDiv = document.createElement("div");
+                resistanceDiv.innerHTML = `
+                <div>
+                    <p>${typeDouble[i].name} 1/2</p>
+                </div>`;
+                resistancesDiv.appendChild(resistanceDiv);
+            }
         }
+
+        if (typeHalf && typeHalf.length > 0) {
+            for (let i = 0; i < typeHalf.length; i++) {
+                const resistanceDiv = document.createElement("div");
+                resistanceDiv.innerHTML = `
+                <div>
+                    <p>${typeHalf[i].name} 2x</p>
+                </div>`;
+                resistancesDiv.appendChild(resistanceDiv);
+            }
+        }
+    } else {
+        resistancesDiv.innerHTML = "<p>No Resistances found</p>";
     }
+
     return card;
 }
 
@@ -208,7 +234,7 @@ function makeImmunityCard(type) {
 
             ImmunityDiv.innerHTML = `
             <div">
-                <p>${type[i].name} 2x</p>
+                <p>${type[i].name}</p>
             </div>`;
             immunitiesDiv.appendChild(ImmunityDiv);
         }
