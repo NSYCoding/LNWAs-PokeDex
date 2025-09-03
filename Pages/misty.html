@@ -8,5 +8,225 @@
     <title>Misty</title>
   </head>
 
-  <body></body>
+  <body>
+    <!---nav section (later veranderen)-->
+    <header>
+      <nav class="navbar">
+        <div class="nav-container">
+          <h1 class="nav-title">Misty's PokeDex</h1>
+          <ul class="nav-menu">
+            <li><a href="#profile" class="nav-link">Profile</a></li>
+            <li><a href="#pokedex" class="nav-link">PokeDex</a></li>
+            <li><a href="#habitats" class="nav-link">Habitats</a></li>
+            <li><a href="#conservation" class="nav-link">Conservation</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Misty profile---->
+      <section id="profile" class="misty-section">
+        <div class="profile-container">
+          <div class="profile-info">
+            <h1>Misty</h1>
+            <h2>Cerulean City Gym Leader</h2>
+            <img src="/Images/misty.png" alt="Misty" class="misty-image" />
+            <p class="misty-description">
+              Misty is a renowned Water-type Pokémon Gym Leader and an advocate
+              for water conservation and marine life protection. Her extensive
+              knowledge of Water-type Pokémon and commitment to the environment
+              has made her a respected figure in the Pokémon community. She is
+              passionate about educating others on the importance of preserving
+              aquatic habitats.
+            </p>
+            <div class="trainer-stats">
+              <div class="stat">
+                <h3>Specialty</h3>
+                <p>Water-type Pokémon</p>
+              </div>
+              <div class="stat">
+                <h3>Gym Badge</h3>
+                <p>Cascade Badge</p>
+              </div>
+              <div class="stat">
+                <h3>Mission</h3>
+                <p>Aquatic Conservation</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- pokedex section -->
+      <section id="pokedex" class="pokedex-section">
+        <div class="container">
+          <h2>Water-Type PokeDex</h2>
+
+          <div class="controls">
+            <div class="search-container">
+              <input
+                type="text"
+                id="pokemon-search"
+                placeholder="Search for a water-type Pokemon..."
+              />
+              <button id="search-btn">Search</button>
+            </div>
+
+            <div class="filter-container">
+              <select id="habitat-filter">
+                <option value="">All Habitats</option>
+                <option value="sea">Sea</option>
+                <option value="waters-edge">Waters Edge</option>
+                <option value="rough-ocean">Rough Ocean</option>
+                <option value="urban">Urban</option>
+                <option value="rare">Rare</option>
+              </select>
+
+              <select id="color-filter">
+                <option value="">All Colors</option>
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+                <option value="yellow">Yellow</option>
+                <option value="pink">Pink</option>
+                <option value="purple">Purple</option>
+                <option value="red">Red</option>
+                <option value="white">White</option>
+                <option value="gray">Gray</option>
+              </select>
+
+              <select id="form-filter">
+                <option value="">All Forms</option>
+                <option value="normal">Normal</option>
+                <option value="alolan">Alolan</option>
+                <option value="galarian">Galarian</option>
+                <option value="mega">Mega</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- pokemon grid -->
+          <div id="pokemon-grid" class="pokemon-grid">
+            <div class="loading">Loading Water-type Pokémon...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- habitat research section -->
+      <section id="habitats" class="habitat-section">
+        <div class="container">
+          <h2>Aquatic Habitat Research</h2>
+          <p class="section-description">
+            Explore different water environments where Pokémon thrive and learn
+            about conservation efforts.
+          </p>
+
+          <div class="habitat-grid">
+            <div class="habitat-card" data-habitat="sea">
+              <h3>Sea</h3>
+              <p>Deep ocean environments with diverse marine life</p>
+              <div class="pokemon-count">0 Pokémon</div>
+            </div>
+            <div class="habitat-card" data-habitat="waters-edge">
+              <h3>Waters Edge</h3>
+              <p>Coastal areas where land meets water</p>
+              <div class="pokemon-count">0 Pokémon</div>
+            </div>
+            <div class="habitat-card" data-habitat="rough-ocean">
+              <h3>Rough Ocean</h3>
+              <p>Turbulent waters with strong currents</p>
+              <div class="pokemon-count">0 Pokémon</div>
+            </div>
+            <div class="habitat-card" data-habitat="urban">
+              <h3>Urban Waters</h3>
+              <p>City waterways and artificial water bodies</p>
+              <div class="pokemon-count">0 Pokémon</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- conservation education tools section-->
+      <section id="conservation" class="conservation-section">
+        <div class="container">
+          <h2>Aquatic Conservation Education</h2>
+
+          <div class="conservation-content">
+            <div class="conservation-card">
+              <h3>Water Quality Protection</h3>
+              <p>
+                Learn how water pollution affects Pokémon habitats and what we
+                can do to protect them.
+              </p>
+              <ul>
+                <li>Reduce plastic waste in waterways</li>
+                <li>Support clean water initiatives</li>
+                <li>Monitor water pH levels</li>
+              </ul>
+            </div>
+
+            <div class="conservation-card">
+              <h3>Marine Ecosystem Preservation</h3>
+              <p>
+                Understanding the delicate balance of marine ecosystems where
+                Water-type Pokémon live.
+              </p>
+              <ul>
+                <li>Coral reef protection</li>
+                <li>Sustainable fishing practices</li>
+                <li>Climate change mitigation</li>
+              </ul>
+            </div>
+
+            <div class="conservation-card">
+              <h3>Pokémon Habitat Research</h3>
+              <p>
+                Ongoing research into how different Water-type Pokémon adapt to
+                their environments.
+              </p>
+              <ul>
+                <li>Migration pattern studies</li>
+                <li>Breeding ground protection</li>
+                <li>Adaptation research</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="stats-dashboard">
+            <h3>Conservation Impact</h3>
+            <div class="stat-grid">
+              <div class="stat-item">
+                <span class="stat-number" id="total-water-pokemon">0</span>
+                <span class="stat-label">Water Pokémon Catalogued</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" id="habitats-studied">0</span>
+                <span class="stat-label">Habitats Studied</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" id="color-variations">0</span>
+                <span class="stat-label">Color Variations</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div id="pokemon-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div id="pokemon-details"></div>
+        </div>
+      </div>
+    </main>
+    <!----footer section(later veranderen)-->
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2025 Misty's PokeDex | Dedicated to Aquatic pokemon
+          Conservation
+        </p>
+      </div>
+    </footer>
+  </body>
 </html>
