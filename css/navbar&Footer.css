@@ -1,5 +1,4 @@
 .navbar {
-  background-color: #0fbc43;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,7 +6,6 @@
 }
 
 .navbar-brand {
-  color: #59ff00;
   font-weight: bold;
   font-size: 1.3rem;
 }
@@ -16,6 +14,47 @@
   list-style: none;
   display: flex;
   gap: 1rem;
+}
+
+/* 🧑‍🔬 Oak = algemeen Pokémon thema */
+.theme-oak {
+  background-color: #3c5aa6;
+}
+.theme-oak .navbar-brand {
+  color: #ffcb05;
+}
+
+/* 🪨 Brock = steen thema */
+.theme-brock {
+  background-color: #6e4b3a;
+}
+.theme-brock .navbar-brand {
+  color: #f4e1c1;
+}
+.theme-brock .navbar-links a:hover {
+  background-color: #a97b50;
+}
+
+/* 🌊 Misty = water thema */
+.theme-misty {
+  background-color: #0277bd;
+}
+.theme-misty .navbar-brand {
+  color: #b3e5fc; /* licht aqua */
+}
+.theme-misty .navbar-links a:hover {
+  background-color: #039be5;
+}
+
+/* 🌿 Evelyn = gras thema */
+.theme-evelyn {
+  background-color: #2e7d32;
+}
+.theme-evelyn .navbar-brand {
+  color: #c8e6c9;
+}
+.theme-evelyn .navbar-links a:hover {
+  background-color: #66bb6a; 
 }
 
 .navbar-links a {

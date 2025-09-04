@@ -1,4 +1,14 @@
-const translations = {
+// Data-mappen voor stat-namen en vertalingen
+export const statMapping = {
+    'attack': 'atk',
+    'defense': 'def',
+    'special-attack': 'spAtk',
+    'special-defense': 'spDef',
+    'speed': 'speed',
+    'hp': 'hp'
+};
+
+export const translations = {
     nl: {
         language: "Taal",
         search: "Zoek Pokémon",
@@ -192,3 +202,141 @@ const translations = {
         savedEntry: "Confronto salvo: "
     }
 };
+
+// Arrays voor natures en items
+export let natures = [];
+export let items = [];
+
+// Functie voor het ophalen van Pokémon-data (via naam of willekeurig)
+export async function fetchPokemon(name = null) {
+    let url;
+    if (name) {
+        url = `https://pokeapi.co/api/v2/pokemon/${name}`;
+    } else {
+        const randomId = Math.floor(Math.random() * 898) + 1;
+        url = `https://pokeapi.co/api/v2/pokemon/${randomId}`;
+    }
+
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Pokémon not found");
+    return res.json();
+}
+
+// Functie voor het ophalen van Natures
+export async function fetchNatures() {
+    try {
+        const res = await fetch('https://pokeapi.co/api/v2/nature?limit=100');
+        const data = await res.json();
+        const natureDetails = await Promise.all(data.results.map(n =>
+            fetch(n.url).then(r => r.json())
+        ));
+        natures = natureDetails.map(n => ({
+            id: n.name,
+            name: n.name,
+            increasedStat: n.increased_stat ? statMapping[n.increased_stat.name] : null,
+            decreasedStat: n.decreased_stat ? statMapping[n.decreased_stat.name] : null
+        }));
+    } catch (error) {
+        console.error("Failed to fetch natures:", error);
+    }
+}
+
+// Functie voor het ophalen van Type-data
+export async function fetchTypeData() {
+    try {
+        const res = await fetch("https://pokeapi.co/api/v2/type");
+        const data = await res.json();
+        const typeDetails = await Promise.all(data.results.map(type =>
+            fetch(type.url).then(res => res.json())
+        ));
+        return typeDetails;
+    } catch (error) {
+        console.error("Failed to fetch type data:", error);
+        return [];
+    }
+}
+
+// Functie voor het initiëren van items
+export function initializeItems() {
+    const itemEffectsMapping = {
+        'choice-scarf': { speedMul: 1.25 },
+        'quick-claw': { quickClaw: true },
+        'focus-sash': { focusSash: true },
+        'life-orb': { atkMul: 1.5, spAtkMul: 1.2, recoil: 0.1 },
+        'assault-vest': { spDefMul: 1.2 },
+        'iron-ball': { speedMul: 0.5 },
+        'lagging-tail': { alwaysLast: true}, 
+        'choice-band': { atkMul: 1.5 },
+        'wise-glasses': { spAtkMul: 1.8 },
+        'eviolite': { defMul: 2.0, spDefMul: 2.0 },
+        'power-herb': { atkMul: 1.5, defMul: 1.5 },
+        'toxic-orb': { spAtkMul: 1.5, spDefMul: 0.5 },
+        'sticky-barb': { atkMul: 1.2, speedDebuffOpponent: 0.7 },
+        'flame-orb': { burn: true}, 
+        'mach-bike': { speedMul: 1.8 },
+        'charcoal': { fireTypeBoost: 2.0 },
+        'mystic-water': { waterTypeBoost: 2.0 },
+        'miracle-seed': { grassTypeBoost: 2.0 },
+        'never-melt-ice': { iceTypeBoost: 2.0 },
+        'sharp-beak': { flyingTypeBoost: 2.0 },
+        'magnet': { electricTypeBoost: 2.0 },
+        'soft-sand': { groundTypeBoost: 2.0 },
+        'black-belt': { fightingTypeBoost: 2.0 },
+        'poison-barb': { poisonTypeBoost: 2.0 },
+        'silver-powder': { bugTypeBoost: 2.0 },
+        'hard-stone': { rockTypeBoost: 2.0 },
+        'spell-tag': { ghostTypeBoost: 2.0 },
+        'twisted-spoon': { psychicTypeBoost: 2.0 },
+        'dragon-fang': { dragonTypeBoost: 2.0 },
+        'black-glasses': { darkTypeBoost: 2.0 },
+        'metal-coat': { steelTypeBoost: 2.0 },
+        'silk-scarf': { normalTypeBoost: 2.0 },
+        'pink-bow': { normalTypeBoost: 2.0 },
+        'bright-powder': { evasionBoost: true}, 
+        'scyther-wing': { flyingTypeBoost: 2.0 },
+        'thick-club': { specialAttackBoost: 2.0 },
+        'light-ball': { specialAttackBoost: 2.0 },
+        'quick-powder': { speedBoost: 2.0 }
+    };
+
+    items = [{
+        id: "none",
+        name: "None",
+        effects: {}
+    }];
+
+    for (const [key, effects] of Object.entries(itemEffectsMapping)) {
+        const name = key.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        items.push({
+            id: key,
+            name: name,
+            effects: effects
+        });
+    }
+}
+
+// Functie voor het berekenen van de effectieve stat-waarde
+export function getEffectiveStat(baseValue, statName, nature = null, item = null) {
+    let value = baseValue;
+
+    // Pas Nature-effecten toe
+    if (nature) {
+        const mappedStatName = statMapping[statName];
+        if (nature.increasedStat === mappedStatName) {
+            value = Math.round(baseValue * 1.1);
+        } else if (nature.decreasedStat === mappedStatName) {
+            value = Math.round(baseValue * 0.9);
+        }
+    }
+
+    // Pas Item-effecten toe (let op de `.` syntax)
+    if (item && item.effects) {
+        if (item.effects.speedMul && statName === 'speed') value *= item.effects.speedMul;
+        if (item.effects.atkMul && statName === 'attack') value *= item.effects.atkMul;
+        if (item.effects.spAtkMul && statName === 'special-attack') value *= item.effects.spAtkMul;
+        if (item.effects.defMul && statName === 'defense') value *= item.effects.defMul;
+        if (item.effects.spDefMul && statName === 'special-defense') value *= item.effects.spDefMul;
+    }
+
+    return value;
+}
