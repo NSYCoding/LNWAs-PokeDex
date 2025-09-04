@@ -13,8 +13,21 @@
       <pokemon-navbar></pokemon-navbar>
 
     <main>
+      <section class="search">
+        <input
+          type="text"
+          id="pokemonSearch"
+          placeholder="Name or PokedexNumber"
+        />
+        <button id="searchBtn">Search</button>
+      </section>
+
       <section id="displayEvolve">
         <div id="containerDisplay">
+          <div id="PokeImg">
+            <img src="" alt="pokemon">
+          </div>
+
           <div class="description">
               <h2 id="pokemonName">Bulbasaur</h2>
               <div class="types">
@@ -23,6 +36,7 @@
               </div>
           </div>
         </div>
+
         <div id="evolutionDisplay">
             <h3>Evolution Chain</h3>
             <div id="evolutionChain"></div>
@@ -37,17 +51,17 @@
       <section id="StrengthsWeakness">
             <h2>Type Chart</h2>
             <div id="strengthsWeaknesses">
-                <div>
-                    <h3>Strengths</h3>
-                    <ul id="strengthsList"></ul>
+              <div>
+                  <h3>Strenghts</h3>
+                  <ul id="strengthsList"></ul>
+              </div>
+              <div>
+                    <h3>Weaknesses</h3>
+                    <ul id="weaknessesList"></ul>
                 </div>
                 <div>
                     <h3>Resistances</h3>
                     <ul id="resistancesList"></ul>
-                </div>
-                <div>
-                    <h3>Immunities</h3>
-                    <ul id="immunitiesList"></ul>
                 </div>
             </div>
       </section>
