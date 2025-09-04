@@ -90,8 +90,8 @@ function clearMatchUps() {
     document.getElementById("searchTwoInput").value = "";
     document.getElementById("pokemonOneName").innerText = "Pokemon 1";
     document.getElementById("pokemonTwoName").innerText = "Pokemon 2";
-    document.getElementById("pokemonOneNameImg").src = "./media/pokeball_pokedex.png";
-    document.getElementById("pokemonTwoNameImg").src = "./media/pokeball_pokedex.png";
+    document.getElementById("pokemonOneNameImg").src = "../images/pokeball_pokedex.png";
+    document.getElementById("pokemonTwoNameImg").src = "../images/pokeball_pokedex.png";
     document.getElementById("displayStatsOne").innerHTML = "";
     document.getElementById("displayStatsTwo").innerHTML = "";
     document.getElementById("estimatedWinner").innerText = "";
