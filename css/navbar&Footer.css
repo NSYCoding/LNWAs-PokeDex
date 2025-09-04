@@ -57,6 +57,30 @@
   background-color: #66bb6a; 
 }
 
+/* Algemene footer styling */
+.footer {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+/* Footer kleuren per theme */
+.theme-oak, .footer {
+  background-color: #3c5aa6;
+}
+
+.theme-brock, .footer {
+  background-color: #6e4b3a;
+}
+
+.theme-misty .footer {
+  background-color: #0277bd;
+}
+
+.theme-evelyn .footer {
+  background-color: #2e7d32;
+}
+
 .navbar-links a {
   text-decoration: none;
   color: white;
@@ -65,7 +89,7 @@
 }
 
 .navbar-links a:hover {
-  background-color: #ff21f4;
+  background-color: #b921ff;
   border-radius: 5px;
 }
 
@@ -94,11 +118,4 @@
   .menu-toggle {
     display: block;
   }
-}
-
-.footer {
-  background-color: #73b012;
-  text-align: center;
-  padding: 1rem;
-  margin-top: 2rem;
 }
