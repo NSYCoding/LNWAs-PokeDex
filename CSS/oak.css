@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+IT+Moderna:wght@100..400&family=Playwrite+US+Modern:wght@100..400&family=Sigmar&family=TASA+Explorer:wght@400..800&display=swap');
 
 :root {
-    --nav-bg-color: #3b4930;
-    --nav-text-color: #cdcdb5;
-    --box-bg-color: #d5d0ba;
-    --box-text-color: #3c3b31;
-    --button-bg-color: #413d32;
-    --button-bg-textcolor: #d5d0ba;
-    --items-bg-color: #afb49d;
-    --items-text-color: #67775a;
+    --nav-bg-color: #4a2a13;
+    --nav-text-color: #b8875b;
+    --box-bg-color: #ba8855;
+    --box-text-color: #fbf5c8;
+    --button-bg-color: #788260;
+    --button-bg-textcolor: #ebf1cf;
+    --items-bg-color: #33342e;
+    --items-text-color: #787d65;
 }
 
 html, body {
@@ -54,7 +54,7 @@ main {
 
 #searchBtn {
     text-align: center;
-    width: 30%;
+    width: 15%;
     padding: 15px 30px;
     background: #56a434;
     color: white;
@@ -290,9 +290,6 @@ main {
 }
 
 @media screen and (max-width: 850px) {
-    html,body {
-
-    }
     #displayEvolve {
         flex-direction: column;
     }
@@ -316,5 +313,9 @@ main {
 
     .pokemonType {
         width: 85%;
+    }
+
+    #searchBtn {
+        width: 30%;
     }
 }
