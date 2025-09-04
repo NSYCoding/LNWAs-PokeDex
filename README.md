@@ -12,7 +12,7 @@ We tracked our tasks and progress using Notion.
 
 ## Meet the team
 
-### Nour Saïf Yassine
+### Nour 
 
 #### Brock page
 
@@ -22,7 +22,7 @@ Brock is a seasoned Pokémon Gym Leader known for his expertise in Rock-type Pok
 
 [Github](https://github.com/NSYCoding) | 
 
-### Lucas Wienen
+### Lucas
 
 #### Evelyn page
 
@@ -32,7 +32,7 @@ Her work involves analyzing vast amounts of Pokémon data to uncover trends, pre
 
 [Github](https://github.com/LABA-LUCAS) | 
 
-### Wilkes Perea
+### Wilkes
 
 #### Oak page
 
@@ -40,7 +40,7 @@ Professor Samuel Oak is a renowned Pokémon researcher known for his extensive w
 
 [Github](https://github.com/Queen018) | [LinkedIn](https://www.linkedin.com/in/wilkes-perea-5a9531353/)
 
-### Azra Tuncer
+### Azra
 
 #### Misty page
 
