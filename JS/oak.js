@@ -23,7 +23,6 @@ function handleSearch(nameOrId) {
     fetchPokemonSpecies(nameOrId);
 }
 
-
 function fetchPokemons(Id) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${Id}`)
     .then((res) => res.json())
