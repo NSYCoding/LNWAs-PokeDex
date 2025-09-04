@@ -1,4 +1,4 @@
-import './navbar.js'
+import './navbar.js';
 const findToolsButton = document.getElementById('findToolsButton');
 
 findToolsButton.addEventListener('click', () => {
@@ -7,3 +7,4 @@ findToolsButton.addEventListener('click', () => {
         window.location.href = "../Pages/BrockTools.html";
     }, 2000);
 });
+
