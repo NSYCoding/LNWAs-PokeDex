@@ -87,7 +87,6 @@ function fetechTypes(type1, type2) {
         .catch(err => console.error(err));
 }
 
-
 function displayPokemon(pokemon) {
     const pokemonName = document.getElementById("pokemonName");
     const pokemonType1 = document.getElementById("pokemonType1");
