@@ -7,7 +7,7 @@ We kept track of the work that we are doing or need to do by using notion
 
 ## Meet the team
 
-### Noor
+### Nour S
 
 #### Brock
 
@@ -33,7 +33,7 @@ Professor Samuel Oak is a renowned Pokémon researcher known for his extensive w
 
 [Github](https://github.com/Queen018) | [LinkedIn](https://www.linkedin.com/in/wilkes-perea-5a9531353/)
 
-### Azra
+### Azra Tuncer
 
 #### Misty
 
