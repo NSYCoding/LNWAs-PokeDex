@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/Evelyn.css" />
-    <title>Pokedex - Evelyn</title>
+    <link rel="stylesheet" href="./css/Evelyn.css" />
+    <link rel="icon" href="./media/LeafCard.webp">
+    <title>Testing for the Pokedex - Evelyn</title>
 </head>
 
 <body>
-
-    <pokemon-navbar></pokemon-navbar>
     
+    <pokemon-navbar></pokemon-navbar>
+
     <div class="languageSelector">
         <button id="langBtn" onclick="toggleLanguageDropdown()"> 🌐 <span data-i18n="language">Language</span></button>
         <div id="languageDropdown" class="dropdown hidden">
@@ -34,6 +35,7 @@
             <button class="typeMatchUps" onclick="showAllTypeMatchUps()"> 🔥 <span data-i18n="typeMatchups">Type
                     Match-Ups</span></button>
         </div>
+
         <div class="saveMatchUps">
             <button id="saveBtn" onclick="saveMatchUp()"> 💾 <span data-i18n="saveMatchup">Save
                     Match-Up</span></button>
@@ -49,6 +51,7 @@
                         onclick="searchPokemon('searchOneInput','pokemonOneName','displayStatsOne','pokemonOneNameImg','one')">
                         🔎 <span data-i18n="search">Search Pokémon</span>
                     </button>
+
                     <button class="randomBtn"
                         onclick="getRandomPokemon('pokemonOneName','displayStatsOne','pokemonOneNameImg','one')">
                         🎲 <span data-i18n="random">Random Pokémon</span>
@@ -56,9 +59,9 @@
                 </div>
 
                 <div class="media">
-                    <img id="pokemonOneNameImg" src="../images/pokeball_pokedex.png" alt="Pokemon 1">
+                    <img id="pokemonOneNameImg" src="./media/pokeball_pokedex.png" alt="Pokemon 1">
                     <div>
-                        <p class="pokeTitle"><span data-i18n="pokemon1">Name:</span>:
+                        <p class="pokeTitle"><span data-i18n="pokemon1">Pokémon 1</span>:
                             <strong id="pokemonOneName">Pokemon 1</strong>
                         </p>
                         <div class="itemRow">
@@ -68,6 +71,7 @@
                                 <strong id="selectedItem-one" data-item="None">None</strong>
                             </span>
                         </div>
+
                         <div class="natureRow">
                             <button class="natureBtn" onclick="toggleNatureMenu('one')"> 🌿 <span
                                     data-i18n="addNature">Add nature</span></button>
@@ -87,6 +91,7 @@
                         onclick="searchPokemon('searchTwoInput','pokemonTwoName','displayStatsTwo','pokemonTwoNameImg','two')">
                         🔎 <span data-i18n="search">Search Pokémon</span>
                     </button>
+
                     <button class="randomBtn"
                         onclick="getRandomPokemon('pokemonTwoName','displayStatsTwo','pokemonTwoNameImg','two')">
                         🎲 <span data-i18n="random">Random Pokémon</span>
@@ -94,7 +99,7 @@
                 </div>
 
                 <div class="media">
-                    <img id="pokemonTwoNameImg" src="../images/pokeball_pokedex.png" alt="Pokemon 2">
+                    <img id="pokemonTwoNameImg" src="./media/pokeball_pokedex.png" alt="Pokemon 2">
                     <div>
                         <p class="pokeTitle"><span data-i18n="pokemon2">Pokémon 2</span>:
                             <strong id="pokemonTwoName">Pokemon 2</strong>
@@ -106,6 +111,7 @@
                                 <strong id="selectedItem-two" data-item="None">None</strong>
                             </span>
                         </div>
+
                         <div class="natureRow">
                             <button class="natureBtn" onclick="toggleNatureMenu('two')"> 🌿 <span
                                     data-i18n="addNature">Add nature</span></button>
@@ -123,6 +129,7 @@
             <button class="runTest" id="runBtn">⚔️ <span data-i18n="runTest">Run test
                     contest</span></button>
             <button class="clearMatchUps" id="clearBtn">🧹 <span data-i18n="clear">Clear</span></button>
+
             <div class="outcomeOfTestRun">
                 <p><span data-i18n="winner">Estimated winner is:</span> <strong id="estimatedWinner"></strong></p>
                 <div id="tieArea" class="hidden">
@@ -140,10 +147,12 @@
                 <h3 data-i18n="recommendation">Recommendation/Explanation</h3>
                 <p id="recommendationText"></p>
             </div>
+
             <div class="savedMatchUps">
                 <p id="savedMatchUpsText"></p>
             </div>
         </div>
+
         <div class="container4 hidden" id="container4">
             <h2> 📚 <span data-i18n="savedHeader">Saved Match-Ups</span></h2>
             <div id="savedList"></div>
@@ -152,8 +161,39 @@
 
     <pokemon-footer></pokemon-footer>
 
-    <script type="module" src="../js/importNav.js"></script>
-    <script src="../js/Evelyn.js"></script>
+    <script type="module" src="./js/Evelyn.js"></script>
+    <script type="module" src="./js/navbar.js"></script>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+Ik zou ook graag willen dat beide pokemons meer schade doen. Het kan voor nu 10 keer zoveel schade doen en ik kijk daarna of dat te veel is.
+
+Ik zou graag willen dat er wordt verteld welke aanval ze doen
+
+Ik zou graag willen dat er wordt genoteerd ook als 1 van de 2 ontwijkt, 
+alleen als iemand ontwijkt anders gaat het gewoon door
+
+Ik zou graag willen dat als pokemon 1 type sterk is tegen pokemons 2 type, 
+dat die eerste meer attack power krijgt/attack increase en defense increase en andersom als pokemon 2 type sterk is tegen pokemons 1 type.
+
+Ik zou graag willen dat er een uitleg wordt gegeven waarom die heeft gewonnen, aan het einde of rechts van de tekst over rondes
+
+
+
+
+-->
