@@ -35,8 +35,8 @@ const translations = {
         savedHeader: "Opgeslagen Match-Ups",
         addItem: "Item toevoegen",
         selectedItem: "Geselecteerd item",
-        addNature: "Natuur toevoegen",
-        selectedNature: "Geselecteerde natuur",
+        addNature: "Voeg natuur toe",
+        selectedNature: "Natuur toevoegen",
         emptySavedList: "Geen opgeslagen match-ups gevonden.",
         savedEntry: "Opgeslagen match-up: "
     },
@@ -207,28 +207,6 @@ const translations = {
         selectedNature: "Natureza selecionada",
         emptySavedList: "Nenhum confronto salvo encontrado.",
         savedEntry: "Confronto salvo: "
-    },
-    ma: {
-        language: "Darija",
-        search: "Chercher Pokémon",
-        random: "Pokémon random",
-        pokemon1: "Pokémon 1",
-        pokemon2: "Pokémon 2",
-        runTest: "Dir wahed lcombat test",
-        clear: "Nqiya",
-        winner: "Li ghaleb howa:",
-        tie: "Match nul! Ntirou la pièce?",
-        flip: "Ntir la pièce",
-        finishedResults: "Résultats lkhrin",
-        recommendation: "Tawsia / Tchrih",
-        typeMatchups: "Match dial types",
-        saveMatchup: "Sajel lcombat",
-        showSaved: "Werri combats li msajlin",
-        savedHeader: "Combats msajlin",
-        addItem: "Zid wahed l’objet",
-        selectedItem: "L’objet mkhtar",
-        emptySavedList: "Malkitch hata combat msajel.",
-        savedEntry: "Combat msajel: "
     }
 };
 
@@ -568,7 +546,7 @@ document.querySelector(".runTest").addEventListener("click", async () => {
         }
     }
 
-    // This check purely determines the first attacker
+    // This check purely determines the first attacker, but I would like it to do more
     if (!firstAttacker) {
         if (actualSpeedOne > actualSpeedTwo) {
             firstAttacker = nameOne;

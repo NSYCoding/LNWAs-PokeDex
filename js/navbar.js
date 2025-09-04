@@ -6,7 +6,7 @@ class Navbar extends HTMLElement {
             <div class="navbar-brand">LNWA Pokedex Deep Dive</div>
             <button class="menu-toggle">☰</button>
             <ul class="navbar-links">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="../index.html">Home</a></li>
             <li><a href="OakInfo.html">Oak's Laboratory</a></li>
             <li><a href="BrockInfo.html">Brock's Kitchen</a></li>
             <li><a href="MistyInfo.html">Misty's Aquarium</a></li>
@@ -36,3 +36,6 @@ class Footer extends HTMLElement {
 
 customElements.define("pokemon-navbar", Navbar);
 customElements.define("pokemon-footer", Footer);
+
+
+// - navbar en footer kleuren aanpassen zodat ze lijken op bladeren

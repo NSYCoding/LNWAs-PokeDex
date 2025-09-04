@@ -18,6 +18,8 @@ const translations = {
         savedHeader: "Opgeslagen Match-Ups",
         addItem: "Item toevoegen",
         selectedItem: "Geselecteerd item",
+        addNature: "Voeg natuur toe",
+        selectedNature: "Natuur toevoegen",
         emptySavedList: "Geen opgeslagen match-ups gevonden.",
         savedEntry: "Opgeslagen match-up: "
     },
@@ -40,6 +42,8 @@ const translations = {
         savedHeader: "Saved Match-Ups",
         addItem: "Add item",
         selectedItem: "Selected item",
+        addNature: "Add nature",
+        selectedNature: "Selected nature",
         emptySavedList: "No saved match-ups found.",
         savedEntry: "Saved match-up: "
     },
@@ -62,6 +66,8 @@ const translations = {
         savedHeader: "Gespeicherte Match-Ups",
         addItem: "Gegenstand hinzufügen",
         selectedItem: "Ausgewählter Gegenstand",
+        addNature: "Natur hinzufügen",
+        selectedNature: "Ausgewählte Natur",
         emptySavedList: "Keine gespeicherten Match-Ups gefunden.",
         savedEntry: "Gespeichertes Match-Up: "
     },
@@ -84,6 +90,8 @@ const translations = {
         savedHeader: "保存された対戦",
         addItem: "アイテムを追加",
         selectedItem: "選択されたアイテム",
+        addNature: "自然を追加",
+        selectedNature: "選択した自然",
         emptySavedList: "保存された対戦は見つかりません。",
         savedEntry: "保存された対戦: "
     },
@@ -106,6 +114,8 @@ const translations = {
         savedHeader: "المواجهات المحفوظة",
         addItem: "إضافة عنصر",
         selectedItem: "العنصر المحدد",
+        addNature: "أضف الطبيعة",
+        selectedNature: "الطبيعة المختارة",
         emptySavedList: "لم يتم العثور على مواجهات محفوظة.",
         savedEntry: "المواجهة المحفوظة: "
     },
@@ -128,6 +138,8 @@ const translations = {
         savedHeader: "Kayıtlı Eşleşmeler",
         addItem: "Öğe ekle",
         selectedItem: "Seçilen öğe",
+        addNature: "Doğa ekle",
+        selectedNature: "Seçilen doğa",
         emptySavedList: "Kayıtlı eşleşme bulunamadı.",
         savedEntry: "Kayıtlı eşleşme: "
     },
@@ -150,6 +162,8 @@ const translations = {
         savedHeader: "Enfrentamientos guardados",
         addItem: "Agregar objeto",
         selectedItem: "Objeto seleccionado",
+        addNature: "Agregar naturaleza",
+        selectedNature: "Naturaleza seleccionada",
         emptySavedList: "No se encontraron enfrentamientos guardados.",
         savedEntry: "Enfrentamiento guardado: "
     },
@@ -172,29 +186,9 @@ const translations = {
         savedHeader: "Confrontos Salvos",
         addItem: "Adicionar item",
         selectedItem: "Item selecionado",
+        addNature: "Adicionar natureza",
+        selectedNature: "Natureza selecionada",
         emptySavedList: "Nenhum confronto salvo encontrado.",
         savedEntry: "Confronto salvo: "
-    },
-    ma: { 
-        language: "Darija", 
-        search: "Chercher Pokémon", 
-        random: "Pokémon Random", 
-        pokemon1: "Pokémon 1", 
-        pokemon2: "Pokémon 2", 
-        runTest: "Lancer un combat test", 
-        clear: "Effacer", 
-        winner: "Le gagnant estimé est:", 
-        tie: "Match nul ! On tire une pièce ?", 
-        flip: "Tirer une pièce", 
-        finishedResults: "Résultats finaux", 
-        recommendation: "Recommandation/Explication", 
-        typeMatchups: "Match des types", 
-        saveMatchup: "Sauvegarder combat", 
-        showSaved: "Montrer combats sauvegardés", 
-        savedHeader: "Combats sauvegardés", 
-        addItem: "Ajouter objet", 
-        selectedItem: "Objet sélectionné", 
-        emptySavedList: "Aucun combat sauvegardé trouvé.", 
-        savedEntry: "Combat sauvegardé: " 
     }
 };
