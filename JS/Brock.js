@@ -1,4 +1,4 @@
-import './navbar.js'
+import '../js/navbar.js'
 const findToolsButton = document.getElementById('findToolsButton');
 
 findToolsButton.addEventListener('click', () => {

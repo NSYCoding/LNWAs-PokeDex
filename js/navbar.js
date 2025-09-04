@@ -24,13 +24,13 @@ class Navbar extends HTMLElement {
         </nav>
         </div>
 
-        <link rel="stylesheet" href="./css/navbar&Footer.css">
+        <link rel="stylesheet" href="../css/navbar&Footer.css">
     `;
     }
 }
 
 const footer = `
-        <link rel="stylesheet" href="./css/navbar&Footer.css">
+        <link rel="stylesheet" href="../css/navbar&Footer.css">
         <div id="footer-content">
             <footer class="footer">
                 <p>© 2025 Pokemon Pokedex. All Rights Reserved.</p>
