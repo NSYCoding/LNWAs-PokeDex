@@ -79,8 +79,8 @@ function fetechTypes(type1, type2) {
 
     Promise.all(requests)
         .then(([data1, data2]) => {
-            console.log("Type 1 data:", data1);
-            if (data2) console.log("Type 2 data:", data2);
+            //console.log("Type 1 data:", data1);
+            //if (data2) console.log("Type 2 data:", data2);
 
             DisplayStrengthWeakness(data1, data2);
         })
@@ -148,21 +148,19 @@ function DisplayLocations(data) {
 
             // Assuming data[i].location_area.name contains something like "route-22"
             let rawName = data[i].location_area.name;
+            let methodname = data[i].version_details[0].encounter_details[0].method.name;
 
-            // Remove hyphens and capitalize each word
-            let formattedName = rawName
-            .split('-') // Split by hyphen
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
-            .join(' '); // Join with space
+            let locationName = makeWordsClean(rawName);
+            let methodName = makeWordsClean(methodname);
 
             const PokelocationsDiv = document.createElement("div");
             PokelocationsDiv.classList.add("Pokelocations");
 
             PokelocationsDiv.innerHTML = `
             <div">
-                <h3>${formattedName}</h3>
-                <p>${data[i].version_details[0].encounter_details[0].method.name}</p>
-                <p>${data[i].version_details[0].encounter_details[0].chance} %</p>
+                <h3>${locationName}</h3>
+                <p>${methodName}</p>
+                <p>Encounter Chance ${data[i].version_details[0].encounter_details[0].chance} %</p>
                 <p>${data[i].version_details[0].encounter_details[0].min_level} lvl - ${data[i].version_details[0].encounter_details[0].max_level} lvl</p>
             </div>`;
             locationsDiv.appendChild(PokelocationsDiv);
@@ -368,7 +366,7 @@ function makePokeCard(name, url) {
     img.className = "poke-card__img";
 
     const label = document.createElement("div");
-    label.innerText = name;
+    label.innerText = makeWordsClean(name);
     label.className = "poke-card__label";
 
     card.appendChild(img);
@@ -423,4 +421,14 @@ function renderEvolutionNode(node, container) {
     }
 
     container.appendChild(nodeWrapper);
+}
+
+function makeWordsClean(rawName) {
+    // Remove hyphens and capitalize each word
+    let formattedName = rawName
+    .split('-') // Split by hyphen
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
+    .join(' '); // Join with space
+
+    return formattedName
 }

@@ -3,12 +3,12 @@
 :root {
     --nav-bg-color: #4a2a13;
     --nav-text-color: #b8875b;
-    --box-bg-color: #ba8855;
-    --box-text-color: #fbf5c8;
-    --button-bg-color: #788260;
-    --button-bg-textcolor: #ebf1cf;
-    --items-bg-color: #33342e;
-    --items-text-color: #787d65;
+    --main-bg-color: #ba8855;
+    --main-text-color: #fbf5c8;
+    --box-bg-color: #788260;
+    --box-bg-textcolor: #ebf1cf;
+    --button-bg-color: #33342e;
+    --button-text-color: #787d65;
 }
 
 html, body {
@@ -23,9 +23,8 @@ body {
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-    background-color: #67775a73;
-    /*background: linear-gradient(90deg,rgba(123,206,239, 1) 0%, rgba(198,222,247, 1) 50%, rgba(255,173,66, 1) 100%);
-    */
+    color: var(--main-text-color);
+    background-color: var(--main-bg-color);
 }
 
 
@@ -56,8 +55,8 @@ main {
     text-align: center;
     width: 15%;
     padding: 15px 30px;
-    background: #56a434;
-    color: white;
+    color: var(--box-text-color);
+    background-color: var(--box-bg-color);
     border: none;
     border-radius: 25px;
     font-weight: bold;
@@ -168,7 +167,8 @@ main {
     border: solid 1px gray;
     border-radius: 25px;
     padding: 10px;
-    background-image: none;
+    color: var(--box-text-color);
+    background-color: var(--box-bg-color);
 
     #locations {
         display: flex;
@@ -176,7 +176,7 @@ main {
         flex-wrap: wrap;
 
         .Pokelocations {
-            background-color:  rgb(72, 72, 89, 0.5);
+            background-color: var(--button-bg-color);
             border-radius: 15px;
             margin: 5px;
             padding: 10px;
@@ -193,7 +193,8 @@ main {
     border: solid 1px gray;
     border-radius: 25px;
     padding: 10px;
-    background-image: none;
+    color: var(--box-text-color);
+    background-color: var(--box-bg-color);
 
     #strengthsWeaknesses {
         display: flex;
@@ -232,6 +233,9 @@ main {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  background-color: var(--button-bg-color);
+  border-radius: 25px;
+  padding: 20px;
   margin: 10px;
 }
 
@@ -243,9 +247,9 @@ main {
 }
 
 .poke-card__label {
-  margin-top: 6px;
-  font-size: 14px;
-  line-height: 1.2;
+    margin-top: 6px;
+    font-size: 1.5rem;
+    line-height: 1.2;
 }
 
 /* Node structure */
